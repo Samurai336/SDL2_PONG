@@ -1,0 +1,43 @@
+
+
+
+SET(SDL2_SEARCH_PATHS
+	~/Library/Frameworks
+	/Library/Frameworks
+	/usr/local
+	/usr
+	/sw # Fink
+	/opt/local # DarwinPorts
+	/opt/csw # Blastwave
+	/opt
+)
+
+FIND_PATH(SDL2_INCLUDE_DIR SDL.h
+	HINTS
+	$ENV{SDL2DIR}
+	PATH_SUFFIXES include/SDL2 include
+	PATHS ${SDL2_SEARCH_PATHS}
+)
+
+FIND_LIBRARY(SDL2_LIBRARY
+	NAMES SDL2
+	HINTS
+	$ENV{SDL2DIR}
+	PATH_SUFFIXES lib64 lib
+	PATHS ${SDL2_SEARCH_PATHS}
+	DOC "SDL2 Lib Path"
+)
+
+FIND_LIBRARY(SDL2MAIN_LIBRARY
+			NAMES SDL2main
+			HINTS
+			$ENV{SDL2DIR}
+			PATH_SUFFIXES lib64 lib
+			PATHS ${SDL2_SEARCH_PATHS}
+		)
+
+INCLUDE(FindPackageHandleStandardArgs)
+
+#message(${SDL2_LIBRARY})
+
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(SDL2 REQUIRED_VARS SDL2_LIBRARY SDL2_INCLUDE_DIR)
