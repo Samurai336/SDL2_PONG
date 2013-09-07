@@ -25,7 +25,9 @@
 #include <SDL2/SDL_image.h>
 
 #include "../Define.h"
-#include "../BaseClasses/BaseUnit.h"
+
+#include "FrameRateController.h"
+
 
 
 class MainRender
@@ -46,7 +48,15 @@ class MainRender
 		bool Draw(SDL_Texture* theTexture, int X, int Y, double rotation = 0.0);
 		bool Draw(SDL_Texture* theTexture, int X, int Y, int X2, int Y2, int W, int H, double rotation = 0.0);
 		bool Draw(SDL_Texture* theTexture, int X, int Y, SDL_Rect &Src_Rect, double rotation = 0.0);
+		bool Draw(int X, int Y, int W, int H, SDL_Color &Color, double rotation = 0.0);
 
+
+
+
+
+
+
+		FrameRateController FrameRateControl;
 
 
 		void CreateDisplayRect();
@@ -58,7 +68,9 @@ class MainRender
 
 
 	private:
-		SDL_Renderer*    Renderer;
+		SDL_Renderer*       Renderer;
+
+
 
 
 };

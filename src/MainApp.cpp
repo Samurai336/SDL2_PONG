@@ -113,7 +113,7 @@ bool MainApp::OnInit()
         return false;
     }
 
-	 //CurrentLevel = new GameLevel1();
+	 CurrentLevel = new PongLevel();
 
 	 if(CurrentLevel->LoadLevel() == false)
      {

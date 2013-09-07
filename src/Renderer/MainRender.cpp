@@ -22,6 +22,8 @@
 #include "MainRender.h"
 
 
+
+
 MainRender::MainRender(void)
 {
 	Renderer = NULL;
@@ -31,12 +33,31 @@ MainRender::MainRender(void)
 
 bool MainRender::InitRenderer(SDL_Window* windowToRenderTo)
 {
-	this->Renderer = SDL_CreateRenderer(windowToRenderTo, -1, SDL_RENDERER_TARGETTEXTURE|SDL_RENDERER_PRESENTVSYNC );
+	this->Renderer = SDL_CreateRenderer(windowToRenderTo, -1, SDL_RENDERER_ACCELERATED );
 
 	if(this->Renderer == NULL)
 	{
+
+        printf("SDL Create failed: %s\n", SDL_GetError());
+
+
 		return false;
+
+
 	}
+	else
+    {
+
+
+#ifdef DEBUG_MODE
+
+
+        SDL_RendererInfo currentRenderInformation;
+        SDL_GetRendererInfo(Renderer, &currentRenderInformation);
+
+        printf("Render Information: name: %s, Flags: %zu \n",currentRenderInformation.name, currentRenderInformation.flags );
+#endif // DEBUG_MODE
+    }
 
 
 
@@ -115,12 +136,30 @@ bool MainRender::Draw(SDL_Texture* theTexture, int X, int Y, SDL_Rect &Src_Rect,
 
 
     SDL_RenderCopyEx(this->Renderer, theTexture, &Src_Rect, &DestR, rotation, NULL, SDL_FLIP_NONE);
-}
 
+
+
+	return true;
+}
+bool MainRender::Draw(int X, int Y, int W, int H, SDL_Color &Color, double rotation)
+{
+    SDL_Rect DestR;
+
+	DestR.x = X;
+	DestR.y = Y;
+	DestR.w = W;
+	DestR.h = H;
+
+
+    SDL_SetRenderDrawColor(this->Renderer, Color.r, Color.g, Color.b, Color.a);
+
+    SDL_RenderFillRect(this->Renderer, &DestR);
+}
 
 
 void MainRender::CreateDisplayRect()
 {
+
 	SDL_Rect DisplayRect;
 	DisplayRect.x = 0;
 	DisplayRect.y = 0;
@@ -135,9 +174,11 @@ void MainRender::CreateDisplayRect()
 
 void MainRender::RenderDisplay()
 {
-	//rendering can happen here
 
+	//rendering can happen here
 	SDL_RenderPresent(Renderer);
+    SDL_RenderClear(Renderer);
+    SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 255);
 
 	//or it can happen here
 
