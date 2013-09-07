@@ -3,6 +3,7 @@
 PongBall::PongBall()
 {
     frameChange = false;
+    roatationRate = 1;
     //ctor
 }
 
@@ -23,6 +24,17 @@ void PongBall::OnLoop()
         Sprite_Rect.x = (currentColumn-1) * Sprite_Rect.w;
         Sprite_Rect.y = (currrentRow-1) * Sprite_Rect.h;
 
+        currentRotation += roatationRate;
+
+        if(currentRotation > 360)
+        {
+            currentRotation -= 360;
+        }
+        else if(currentRotation < 0)
+        {
+            currentRotation += 360;
+        }
+
     }
 
     if(frameChange)
@@ -41,10 +53,17 @@ void PongBall::OnLoop()
 
 void PongBall::PongBallWasHit()
 {
-     currentColumn = (rand() % 3+2);
+    currentColumn = (rand() % 3+2);
 
     frameShowCount = SDL_GetTicks() + DISPLAY_FRAME_FOR;
     frameChange = true;
+
+    roatationRate = (rand() % 10);
+
+    if((rand() % 10+1)%2)
+    {
+        roatationRate *= -1;
+    }
 
 
 
@@ -62,6 +81,18 @@ int* PongBall::getVelocity()
 
     return velocity;
 
+}
+
+void PongBall::ResetRotation()
+{
+
+    currentRotation = 0;
+
+}
+
+void PongBall::OnRender(MainRender	&theRenderer)
+{
+    theRenderer.Draw(this->unitTexture, X, Y, Sprite_Rect, currentRotation);
 }
 
 

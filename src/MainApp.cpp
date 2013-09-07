@@ -115,6 +115,11 @@ bool MainApp::OnInit()
 		return false;
 	}
 
+    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) <0)
+    {
+        return false;
+    }
+
     //Initialize SDL_ttf
     if( TTF_Init() == -1 )
     {
@@ -195,6 +200,8 @@ void MainApp::OnLoop()
 }
 
 
+
+
 void MainApp::OnRender()
 {
 	MainRenderTarget.CreateDisplayRect();
@@ -225,6 +232,8 @@ void MainApp::OnCleanup()
 	delete CurrentLevel;
 
     TTF_Quit();
+
+    Mix_CloseAudio();
 
     SDL_Quit();
 }

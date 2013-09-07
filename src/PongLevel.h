@@ -6,8 +6,10 @@
 #include "BaseClasses/Events.h"
 #include "BaseClasses/Level.h"
 #include "BaseClasses/SpriteText.h"
+#include "BaseClasses/BaseSound.h"
 #include "PongPlayer.h"
 #include "PongBall.h"
+
 
 
 #define WHEEL_MOVE_RES 20
@@ -63,6 +65,11 @@ class PongLevel: public Level
         int         CoundDownDisplay;
         int         roundXVel, roundYVel;
         SpriteText CountDown;
+        BaseSound Boop;
+        BaseSound Clap;
+        BaseSound CountBeep;
+        BaseSound LongBeep;
+
 
 
 

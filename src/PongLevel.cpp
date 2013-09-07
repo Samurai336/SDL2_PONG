@@ -17,6 +17,17 @@ bool PongLevel::LoadLevel()
 
     Ball.CreateAnimatedSprite("Assets/EricHeadSprite64.png", 4,1, 0, false);
 
+    if(!Boop.Load("Assets/Sounds/Boop.wav"))
+    {
+
+        return false;
+
+    }
+
+    Clap.Load("Assets/Sounds/Clap.wav");
+    CountBeep.Load("Assets/Sounds/CountBeep.wav");
+    LongBeep.Load("Assets/Sounds/LongBoop.wav");
+
     Ball.SetPosition(400,300);
 
     Ball.setVelocity(0, 0);   //(1, 2);
@@ -91,16 +102,23 @@ void PongLevel::UpDateCountDown()
             int countDownNum = CoundDownDisplay;
             sprintf(buffer,"%d",  countDownNum);
             CountDown =  buffer;
+            if(CoundDownDisplay == 0)
+            {
+                LongBeep.Play();
+            }
+            else
+            {
+                CountBeep.Play();
+            }
 
         }
     }
-
-
-
 }
 
 void PongLevel::ResetAreina()
 {
+     Clap.Play();
+     Ball.ResetRotation();
      Ball.setVelocity(0, 0);
      Ball.SetPosition(400,300);
      SetCountDowns();
@@ -169,10 +187,20 @@ void PongLevel::OnCleanup()
 {
 
     CountDown.OnCleanup();
+    Clap.OnCleanup();
+    CountBeep.OnCleanup();
+    LongBeep.OnCleanup();
+    Boop.OnCleanup();
+
 
     Player1.OnCleanup();
     Player2.OnCleanup();
     Ball.OnCleanup();
+
+
+
+
+
 }
 
 void PongLevel::OnMouseWheel(int XWheel, int YWheel)
@@ -231,6 +259,8 @@ void PongLevel::OnWindowBoundsCheck()
 
     if(Ball.GetY() < 0 || (Ball.GetY()> (WHEIGHT - Ball.GetHeight())))
     {
+       Ball.PongBallWasHit();
+
        Ball.getVelocity()[1] *= -1 ;
     }
     if((Ball.GetX() + Ball.GetWidth()) < 0)
@@ -259,6 +289,7 @@ void PongLevel::CollisionChecks ()
 
     if(SDL_HasIntersection(Player1.GetCollisionRect(), Ball.GetCollisionRect()) || SDL_HasIntersection(Player2.GetCollisionRect(), Ball.GetCollisionRect()))
     {
+        Boop.Play();
         Ball.PongBallWasHit();
         Ball.getVelocity()[0] *= -1;
     }

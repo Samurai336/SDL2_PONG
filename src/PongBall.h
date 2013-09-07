@@ -13,6 +13,10 @@ class PongBall: public SpriteAnimation
 
         void OnLoop();
 
+        void OnRender(MainRender	&theRenderer);
+
+        void ResetRotation();
+
         int* getVelocity();
 
         void setVelocity(int newVx, int newVy);
@@ -27,6 +31,8 @@ class PongBall: public SpriteAnimation
         uint32_t frameShowCount;
         SDL_Rect collisionRect;
         int velocity[2];
+        int roatationRate;
+        int currentRotation;
     private:
 };
 

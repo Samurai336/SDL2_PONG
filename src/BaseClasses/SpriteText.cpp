@@ -1,17 +1,17 @@
 #include "SpriteText.h"
 
-struct something 
+struct something
 {
-	int i,j,k; 
+	int i,j,k;
 };
 
 SpriteText::SpriteText() :theText(""), textSprite(NULL), fontFile(NULL)
 {
 	//TextColor =  {255, 255, 255}; // This does no work on windows wtf
 
-	TextColor = TextColor; 
+	TextColor = TextColor;
 
-	//something mine = {1,2,3}; 
+	//something mine = {1,2,3};
 
     TextDisplayRect.x = TextDisplayRect.y = TextDisplayRect.h = TextDisplayRect.w  = 0;
 
@@ -23,14 +23,14 @@ SpriteText::SpriteText() :theText(""), textSprite(NULL), fontFile(NULL)
     //ctor
 }
 
-SpriteText::SpriteText(char* fontTTFFile, char* StartText, unsigned int fontSize, int positionX , int positionY, SDL_Color Color)
+SpriteText::SpriteText( char* fontTTFFile, char* StartText, unsigned int fontSize, int positionX , int positionY, SDL_Color Color)
 {
     LoadSpriteText(fontTTFFile, StartText, fontSize, positionX, positionY, Color);
 
 
 }
 
-bool SpriteText::LoadSpriteText(char* fontTTFFile, char* StartText, unsigned int fontSize, int positionX, int positionY, SDL_Color Color)
+bool SpriteText::LoadSpriteText( char* fontTTFFile, char* StartText, unsigned int fontSize, int positionX, int positionY, SDL_Color Color)
 {
     if((fontFile = TTF_OpenFont( fontTTFFile, fontSize ))==NULL)
     {
