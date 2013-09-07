@@ -2,7 +2,7 @@
 **  Copyright 2013 Eric Basile 												  	**
 **  																			**
 **  This file is part of Henry Hudson's Revenge. A Cross Platform project,      **
-**  also Known as HHR_X and referd to as such thoughout.						**	
+**  also Known as HHR_X and referd to as such thoughout.						**
 **  																			**
 **  HHR_X is free software: you can redistribute it and/or modify			  	**
 **  it under the terms of the GNU General Public License as published by		**
@@ -17,7 +17,7 @@
 **  You should have received a copy of the GNU General Public License		  	**
 **  along with HHR_X.  If not, see <http://www.gnu.org/licenses/>.			  	**
 **  																			**
-**********************************************************************************/	
+**********************************************************************************/
 
 //==============================================================================
 #ifndef _EVENTS_H_
@@ -48,7 +48,7 @@ class Events {
 
 		virtual void OnMouseMove(int mX, int mY, int relX, int relY, bool Left,bool Right,bool Middle);
 
-		virtual void OnMouseWheel(bool Up, bool Down);	//Not implemented
+		virtual void OnMouseWheel(int XWheel, int YWheel);	//Not implemented
 
 		virtual void OnLButtonDown(int mX, int mY);
 

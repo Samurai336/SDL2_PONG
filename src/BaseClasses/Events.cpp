@@ -71,6 +71,10 @@ void Events::OnEvent(SDL_Event* Event) {
 			break;
 		}
 
+        case SDL_MOUSEWHEEL:
+        {
+            OnMouseWheel(Event->wheel.x, Event->wheel.y);
+        }
 		case SDL_MOUSEMOTION: {
 			OnMouseMove(Event->motion.x,Event->motion.y,Event->motion.xrel,Event->motion.yrel,(Event->motion.state&SDL_BUTTON(SDL_BUTTON_LEFT))!=0,(Event->motion.state&SDL_BUTTON(SDL_BUTTON_RIGHT))!=0,(Event->motion.state&SDL_BUTTON(SDL_BUTTON_MIDDLE))!=0);
 			break;
@@ -215,7 +219,7 @@ void Events::OnMouseMove(int mX, int mY, int relX, int relY, bool Left,bool Righ
 }
 
 //------------------------------------------------------------------------------
-void Events::OnMouseWheel(bool Up, bool Down) {
+void Events::OnMouseWheel(int XWheel, int YWheel) {
 	//Pure virtual, do nothing
 }
 

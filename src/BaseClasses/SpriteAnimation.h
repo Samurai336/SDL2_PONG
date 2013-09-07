@@ -45,17 +45,17 @@ class SpriteAnimation: public BaseUnit
         virtual ~SpriteAnimation();
 
     protected:
-
+        SDL_Rect Sprite_Rect;
+        uint32_t LastUpDate;
+        uint32_t Rate;
     private:
         void CalculateSpriteSize();
         unsigned int numberOfColumns;
         unsigned int numberOfRows;
-        uint32_t LastUpDate;
-        uint32_t Rate;
         unsigned int currrentRow;
         unsigned int currentColumn;
         bool loop;
-        SDL_Rect Sprite_Rect;
+
 
 
 

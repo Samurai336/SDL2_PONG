@@ -24,9 +24,9 @@ void PongPlayer::OnLoop()
 }
 
 
-SDL_Rect PongPlayer::GetCollisionRect()
+SDL_Rect *PongPlayer::GetCollisionRect()
 {
-    return collisionRect;
+    return &collisionRect;
 }
 
 void PongPlayer::OnRender(MainRender	&theRenderer)

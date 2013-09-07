@@ -50,6 +50,12 @@ class BaseUnit
 
 			void  SetPosition(float MoveX, float MoveY);
 
+			float  GetX();
+			float  GetY();
+
+            void  SetX(float newX);
+			void  SetY(float newY);
+
 			void setRenderOrder(int newRenderOrder) { renderOrder = newRenderOrder; };
 
 			int GetWidth(){return width;}

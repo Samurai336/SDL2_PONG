@@ -63,6 +63,32 @@ void BaseUnit::OnLoop()
 
 }
 
+float  BaseUnit::GetX()
+{
+
+    return X;
+
+}
+
+float  BaseUnit::GetY()
+{
+
+    return Y;
+
+}
+
+void  BaseUnit::SetX(float newX)
+{
+    X = newX;
+
+}
+
+void  BaseUnit::SetY(float newY)
+{
+
+    Y = newY;
+}
+
 void BaseUnit::OnRender(MainRender	&theRenderer)
 {
 	theRenderer.Draw(unitTexture, X,Y, rotation);

@@ -16,7 +16,7 @@ class PongPlayer:public BaseUnit
 
 		void OnRender(MainRender &theRenderer);
 
-        SDL_Rect GetCollisionRect();
+        SDL_Rect* GetCollisionRect();
 
 		void OnCleanup();
 

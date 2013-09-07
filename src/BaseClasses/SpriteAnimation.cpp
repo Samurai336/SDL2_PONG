@@ -126,32 +126,34 @@ void SpriteAnimation::OnLoop()
 {
 
 
-
-    if(SDL_GetTicks() > (LastUpDate + Rate))
+    if(Rate != 0)
     {
-        LastUpDate = SDL_GetTicks();
-
-        Sprite_Rect.x = (currentColumn-1) * Sprite_Rect.w;
-        Sprite_Rect.y = (currrentRow-1) * Sprite_Rect.h;
-
-        printf("Sprite Update!\n");
-
-        if(loop)
+        if(SDL_GetTicks() > (LastUpDate + Rate))
         {
-            if(currentColumn >= numberOfColumns)
+            LastUpDate = SDL_GetTicks();
+
+            Sprite_Rect.x = (currentColumn-1) * Sprite_Rect.w;
+            Sprite_Rect.y = (currrentRow-1) * Sprite_Rect.h;
+
+            //printf("Sprite Update!\n");
+
+            if(loop)
             {
-                currentColumn = 1;
+                if(currentColumn >= numberOfColumns)
+                {
+                    currentColumn = 1;
+                }
+                else
+                {
+                    currentColumn++;
+                }
             }
             else
             {
-                currentColumn++;
-            }
-        }
-        else
-        {
-            if(currentColumn != numberOfColumns)
-            {
-                currentColumn++;
+                if(currentColumn != numberOfColumns)
+                {
+                    currentColumn++;
+                }
             }
         }
     }

@@ -5,6 +5,10 @@
 #include "BaseClasses/Events.h"
 #include "BaseClasses/Level.h"
 #include "PongPlayer.h"
+#include "PongBall.h"
+
+
+#define WHEEL_MOVE_RES 20
 
 class PongLevel: public Level
 {
@@ -16,7 +20,9 @@ class PongLevel: public Level
         void OnRender(MainRender	&theRenderer);
         void OnCleanup();
 
-       	void OnMouseMove(int mX, int mY, int relX, int relY, bool Left,bool Right,bool Middle);
+
+
+       	void OnMouseWheel(int XWheel, int YWheel);
 
        	void OnKeyDown(SDL_Keycode  sym,  SDL_Keymod mod, Uint16 unicode);
 
@@ -26,6 +32,12 @@ class PongLevel: public Level
     protected:
 
     private:
+
+        void OnWindowBoundsCheck();
+
+        void CollisionChecks ();
+
+        PongBall   Ball;
         PongPlayer Player1;
         PongPlayer Player2;
 
