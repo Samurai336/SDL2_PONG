@@ -15,7 +15,7 @@ bool PongLevel::LoadLevel()
     Player1.Load(Player1Color, 250, 50, 25, 100);
     Player2.Load(Player2Color, 250, 725, 25, 100);
 
-    Ball.CreateAnimatedSprite("Assets/skullPowerUp.png", 1,1, 1, false);
+    Ball.CreateAnimatedSprite("Assets/EricHeadSprite64.png", 4,1, 0, false);
 
     Ball.SetPosition(400,300);
 
@@ -259,6 +259,7 @@ void PongLevel::CollisionChecks ()
 
     if(SDL_HasIntersection(Player1.GetCollisionRect(), Ball.GetCollisionRect()) || SDL_HasIntersection(Player2.GetCollisionRect(), Ball.GetCollisionRect()))
     {
+        Ball.PongBallWasHit();
         Ball.getVelocity()[0] *= -1;
     }
 

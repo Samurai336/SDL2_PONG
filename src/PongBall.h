@@ -3,6 +3,8 @@
 
 #include "BaseClasses/SpriteAnimation.h"
 
+#define DISPLAY_FRAME_FOR 500
+
 
 class PongBall: public SpriteAnimation
 {
@@ -17,8 +19,12 @@ class PongBall: public SpriteAnimation
 
         SDL_Rect* GetCollisionRect();
 
+        void PongBallWasHit();
+
         virtual ~PongBall();
     protected:
+        bool frameChange;
+        uint32_t frameShowCount;
         SDL_Rect collisionRect;
         int velocity[2];
     private:
