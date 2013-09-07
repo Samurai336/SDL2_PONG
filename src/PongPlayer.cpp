@@ -13,6 +13,8 @@ bool PongPlayer::Load(SDL_Color setColor, int x, int y, unsigned int Width, unsi
     collisionRect.y = Y = x;
     collisionRect.w = width  = Width;
     collisionRect.h = height = Height;
+
+    score = 0;
 }
 
 
@@ -33,6 +35,17 @@ void PongPlayer::OnRender(MainRender	&theRenderer)
 {
 
     theRenderer.Draw(X,Y,width,height,PlayerColor);
+}
+
+void PongPlayer::IncreaseScore()
+{
+    score++;
+}
+
+int PongPlayer::GetCurrentScore()
+{
+
+    return score;
 }
 
 void PongPlayer::OnCleanup()

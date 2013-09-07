@@ -18,6 +18,10 @@ class PongPlayer:public BaseUnit
 
         SDL_Rect* GetCollisionRect();
 
+        void IncreaseScore();
+
+        int GetCurrentScore();
+
 		void OnCleanup();
 
         virtual ~PongPlayer();
@@ -25,6 +29,7 @@ class PongPlayer:public BaseUnit
     private:
         SDL_Color PlayerColor;
         SDL_Rect collisionRect;
+        unsigned int score;
 };
 
 #endif // PONGPLAYER_H

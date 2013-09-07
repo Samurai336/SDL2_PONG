@@ -31,4 +31,8 @@
 #define Sleep(x) usleep((x)*1000)
 #endif
 
-#include <stdio.h>
+#include <stdio.h>      /* printf, scanf, puts, NULL */
+#include <stdlib.h>     /* srand, rand */
+
+
+
