@@ -2,7 +2,7 @@
 #define SPRITETEXT_H
 
 
-#include <SDL2/SDL_ttf.h>
+#include <SDL2_ttf/SDL_ttf.h>
 #include <string>
 #include "../Renderer/MainRender.h"
 

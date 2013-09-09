@@ -1,7 +1,7 @@
 #ifndef BASESOUND_H
 #define BASESOUND_H
 
-#include <SDL2/SDL_mixer.h>
+#include <SDL2_mixer/SDL_mixer.h>
 
 class BaseSound
 {
