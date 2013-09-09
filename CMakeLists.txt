@@ -120,7 +120,7 @@ if (Option_SDL_Dev)
 		)
 	target_link_libraries(${App_Name}
 		${SDL2_LIBRARY}
-		${SDL2MAIN_LIBRARY}
+# 		${SDL2MAIN_LIBRARY}
 		${SDL2IMAGE_LIBRARY}
 		${SDL2MIXER_LIBRARY}
 		${SDL2TTF_LIBRARY}

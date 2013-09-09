@@ -27,7 +27,7 @@
 
 
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
+#include <SDL2_ttf/SDL_ttf.h>
 #include "Define.h"
 #include "BaseClasses/Events.h"
 #include "Renderer/MainRender.h"
