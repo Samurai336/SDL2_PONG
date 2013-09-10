@@ -21,7 +21,12 @@
 
 #pragma once
 
-#include <SDL2_ttf/SDL_ttf.h> 
+
+#ifdef APPLE
+#include <SDL2_ttf/SDL_ttf.h>
+#else
+#include <SDL2/SDL_ttf.h>
+#endif
 
 class BaseUI
 {

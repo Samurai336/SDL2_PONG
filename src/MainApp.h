@@ -27,7 +27,12 @@
 
 
 #include <SDL2/SDL.h>
+
+#ifdef APPLE
 #include <SDL2_ttf/SDL_ttf.h>
+#else
+#include <SDL2/SDL_ttf.h>
+#endif
 #include "Define.h"
 #include "BaseClasses/Events.h"
 #include "Renderer/MainRender.h"
