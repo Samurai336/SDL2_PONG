@@ -1,3 +1,23 @@
+/*********************************************************************************
+**  Copyright 2013 Eric Basile 												  	**
+**  																			**
+**  This file is part of SDL2_Pong.                                    			**
+**  																			**
+**  SDL2_Pong is free software: you can redistribute it and/or modify			**
+**  it under the terms of the GNU General Public License as published by		**
+**  the Free Software Foundation, either version 3 of the License, or		  	**
+**  (at your option) any later version.										  	**
+**  																			**
+**  SDL2_Pong is distributed in the hope that it will be useful,			    **
+**  but WITHOUT ANY WARRANTY; without even the implied warranty of			  	**
+**  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the			  	**
+**  GNU General Public License for more details.								**
+**  																			**
+**  You should have received a copy of the GNU General Public License		  	**
+**  along with SDL2_Pong.  If not, see <http://www.gnu.org/licenses/>.			**
+**  																			**
+**********************************************************************************/
+
 #include "PongLevel.h"
 
 PongLevel::PongLevel()
@@ -7,41 +27,45 @@ PongLevel::PongLevel()
 
 }
 
+//load out level
 bool PongLevel::LoadLevel()
 {
+    //Our Player colors
     SDL_Color Player1Color = {255,0,0};
     SDL_Color Player2Color = {0,0,255};
 
+    //load our players
     Player1.Load(Player1Color, 250, 50, 25, 100);
     Player2.Load(Player2Color, 250, 725, 25, 100);
 
+    //Load our ball
     Ball.CreateAnimatedSprite("Assets/EricHeadSprite64.png", 4,1, 0, false);
 
-    if(!Boop.Load("Assets/Sounds/Boop.wav"))
-    {
-
-        return false;
-
-    }
-
+    //Load our sound effects
+    Boop.Load("Assets/Sounds/Boop.wav");
     Clap.Load("Assets/Sounds/Clap.wav");
     CountBeep.Load("Assets/Sounds/CountBeep.wav");
     LongBeep.Load("Assets/Sounds/LongBoop.wav");
 
+    //Set ball start position
     Ball.SetPosition(400,300);
 
+    //Set balls start velocity
     Ball.setVelocity(0, 0);   //(1, 2);
 
+    //Load our UI display and text
     Player1Score.LoadSpriteText("Assets/Romanesque_Serif.ttf","0", 75, 300, 50, Player1Color);
     Player2Score.LoadSpriteText("Assets/Romanesque_Serif.ttf","0", 75, 500, 50, Player2Color);
-
     CountDown.LoadSpriteText("Assets/Romanesque_Serif.ttf","", 120, 400, 300);
 
+    //Round ball valocitys
     roundXVel = roundYVel = 2;
 
+    //Set player start scores
     Player1Score = "0";
     Player2Score = "0";
 
+    //Start our countdown
     SetCountDowns();
 
     return true;
@@ -49,7 +73,8 @@ bool PongLevel::LoadLevel()
 
 void PongLevel::SetCountDowns()
 {
-
+    //Display a message the round will start
+    //and set the count down timers
     CountDown = "Ready!";
     RestTime = SDL_GetTicks() + RESET_TIME;
     CountDownTime = RestTime + COUNT_DOWN_TIME;
@@ -60,11 +85,13 @@ void PongLevel::SetCountDowns()
 
 void PongLevel::OnEvent(SDL_Event* Event)
 {
+    //Handle events
     Events::OnEvent(Event);
 }
 
 void PongLevel::OnLoop()
 {
+    //Check that nothing left the window bounds
     OnWindowBoundsCheck();
 
     if(resetMode)
@@ -236,6 +263,7 @@ void PongLevel::OnKeyUp(SDL_Keycode  sym,  SDL_Keymod mod, Uint16 unicode)
 void PongLevel::OnWindowBoundsCheck()
 {
 
+    //check that player is and stays in screen bounds
     if(Player1.GetY() < 0)
     {
         Player1.SetY(0);
@@ -245,7 +273,7 @@ void PongLevel::OnWindowBoundsCheck()
         Player1.SetY(WHEIGHT - Player1.GetHeight());
     }
 
-
+    //check that player is and stays in screen bounds
     if(Player2.GetY() < 0)
     {
         Player2.SetY(0);
@@ -257,12 +285,16 @@ void PongLevel::OnWindowBoundsCheck()
     }
 
 
+    //check that ball is in vertical screen bounds
     if(Ball.GetY() < 0 || (Ball.GetY()> (WHEIGHT - Ball.GetHeight())))
     {
        Ball.PongBallWasHit();
 
        Ball.getVelocity()[1] *= -1 ;
     }
+
+    //if the ball is past a left or right bound award a point and
+    //update the display
     if((Ball.GetX() + Ball.GetWidth()) < 0)
     {
        Player2.IncreaseScore();
@@ -286,7 +318,7 @@ void PongLevel::OnWindowBoundsCheck()
 
 void PongLevel::CollisionChecks ()
 {
-
+    //Check if the ball has collided with a player.
     if(SDL_HasIntersection(Player1.GetCollisionRect(), Ball.GetCollisionRect()) || SDL_HasIntersection(Player2.GetCollisionRect(), Ball.GetCollisionRect()))
     {
         Boop.Play();

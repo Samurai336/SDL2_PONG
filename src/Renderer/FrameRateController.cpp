@@ -1,6 +1,28 @@
+/*********************************************************************************
+**  Copyright 2013 Eric Basile 												  	**
+**  																			**
+**  This file is part of SDL2_Pong.                                    			**
+**  																			**
+**  SDL2_Pong is free software: you can redistribute it and/or modify			**
+**  it under the terms of the GNU General Public License as published by		**
+**  the Free Software Foundation, either version 3 of the License, or		  	**
+**  (at your option) any later version.										  	**
+**  																			**
+**  SDL2_Pong is distributed in the hope that it will be useful,			    **
+**  but WITHOUT ANY WARRANTY; without even the implied warranty of			  	**
+**  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the			  	**
+**  GNU General Public License for more details.								**
+**  																			**
+**  You should have received a copy of the GNU General Public License		  	**
+**  along with SDL2_Pong.  If not, see <http://www.gnu.org/licenses/>.			**
+**  																			**
+**********************************************************************************/
+
+
 #include "FrameRateController.h"
 
 
+//Set default values and set default frame target of 60Hz
 FrameRateController::FrameRateController(void)
 {
 
@@ -17,6 +39,7 @@ FrameRateController::FrameRateController(void)
 
 }
 
+//construct with a set target Hz
 FrameRateController::FrameRateController(unsigned int TargetHz)
 {
 	TargetHertz = TargetHz;
@@ -29,29 +52,25 @@ FrameRateController::FrameRateController(unsigned int TargetHz)
 	maxHzHit = false;
 }
 
-
-FrameRateController::~FrameRateController(void)
-{
-
-}
-
-
 void FrameRateController::OnLoop()
 {
-    uint32_t currentTime = SDL_GetTicks();
-    if( (currentTime-OldTime) > (1000/TargetHertz))
+
+    //Have we hit our rate per second cap yet?
+    if( (SDL_GetTicks()-OldTime) > (1000/TargetHertz))
     {
+        //if Not update the frame tick
         OldTime = SDL_GetTicks();
         Frames++;
         maxHzHit = false;
     }
     else
     {
-
+        //if we did let others know
         maxHzHit = true;
     }
 
-    if((currentTime - FPSTime) > 1000)
+    //Figure out how many frames got drawn over a second
+    if((SDL_GetTicks() - FPSTime) > 1000)
     {
         FPSTime= SDL_GetTicks();
         NumFrames = Frames ;
@@ -63,6 +82,8 @@ void FrameRateController::OnLoop()
 
 }
 
+//update and find out if we reached our target rate
+//Permillisecond
 bool FrameRateController::TargetRateHit()
 {
 	OnLoop();
@@ -70,30 +91,30 @@ bool FrameRateController::TargetRateHit()
 	return maxHzHit;
 }
 
+//Get our FPS count
 int FrameRateController::GetFPS()
 {
-    if(NumFrames == 0)
-    {
-        return 0;
-    }
-    else
-    {
-        return   (NumFrames);
-    }
-
+    return  (NumFrames);
 }
 
+//Get target Hz
 int	FrameRateController::GetTargetHerz()
 {
 	return TargetHertz;
 }
 
+//Set target Hz
 void FrameRateController::SetTargetHz(unsigned int targetRate)
 {
 	TargetHertz = targetRate;
 }
 
 void FrameRateController::Render()
+{
+
+}
+
+FrameRateController::~FrameRateController(void)
 {
 
 }

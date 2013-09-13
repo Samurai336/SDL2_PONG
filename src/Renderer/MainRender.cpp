@@ -1,40 +1,42 @@
 /*********************************************************************************
 **  Copyright 2013 Eric Basile 												  	**
 **  																			**
-**  This file is part of Henry Hudson's Revenge. A Cross Platform project,      **
-**  also Known as HHR_X and referd to as such thoughout.						**
+**  This file is part of SDL2_Pong.                                    			**
 **  																			**
-**  HHR_X is free software: you can redistribute it and/or modify			  	**
+**  SDL2_Pong is free software: you can redistribute it and/or modify			**
 **  it under the terms of the GNU General Public License as published by		**
 **  the Free Software Foundation, either version 3 of the License, or		  	**
 **  (at your option) any later version.										  	**
 **  																			**
-**  HHR_X is distributed in the hope that it will be useful,					**
+**  SDL2_Pong is distributed in the hope that it will be useful,			    **
 **  but WITHOUT ANY WARRANTY; without even the implied warranty of			  	**
 **  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the			  	**
 **  GNU General Public License for more details.								**
 **  																			**
 **  You should have received a copy of the GNU General Public License		  	**
-**  along with HHR_X.  If not, see <http://www.gnu.org/licenses/>.			  	**
+**  along with SDL2_Pong.  If not, see <http://www.gnu.org/licenses/>.			**
 **  																			**
 **********************************************************************************/
+
 
 #include "MainRender.h"
 
 
 
-
+//Set main renderer to null
 MainRender::MainRender(void)
 {
 	Renderer = NULL;
 }
 
-
-
+//Creater a render space in the window we where given
 bool MainRender::InitRenderer(SDL_Window* windowToRenderTo)
 {
+    //create the renderer in the window, use first driver to suport flags, use Hardware acceleration
 	this->Renderer = SDL_CreateRenderer(windowToRenderTo, -1, SDL_RENDERER_ACCELERATED );
 
+    //if we faild to create the renderer
+    //print out why
 	if(this->Renderer == NULL)
 	{
 
@@ -49,9 +51,9 @@ bool MainRender::InitRenderer(SDL_Window* windowToRenderTo)
     {
 
 
+
 #ifdef DEBUG_MODE
-
-
+        //Display Current render information
         SDL_RendererInfo currentRenderInformation;
         SDL_GetRendererInfo(Renderer, &currentRenderInformation);
 
@@ -64,6 +66,7 @@ bool MainRender::InitRenderer(SDL_Window* windowToRenderTo)
 	return true;
 }
 
+//Draw a texture at x,y with a rotation.
 bool MainRender::Draw(SDL_Texture* theTexture, int X, int Y, double rotation)
 {
 	if(theTexture == NULL)
@@ -89,6 +92,7 @@ bool MainRender::Draw(SDL_Texture* theTexture, int X, int Y, double rotation)
 
 }
 
+//Draw a section of a texture with a rotaton
 bool MainRender::Draw(SDL_Texture* theTexture, int X, int Y, int X2, int Y2, int W, int H, double rotation)
 {
 	if(theTexture == NULL)
@@ -118,6 +122,7 @@ bool MainRender::Draw(SDL_Texture* theTexture, int X, int Y, int X2, int Y2, int
 
 }
 
+//Draw a texture at x,y with a rotation.
 bool MainRender::Draw(SDL_Texture* theTexture, int X, int Y, SDL_Rect &Src_Rect, double rotation)
 {
 
@@ -141,6 +146,8 @@ bool MainRender::Draw(SDL_Texture* theTexture, int X, int Y, SDL_Rect &Src_Rect,
 
 	return true;
 }
+
+//Draw a filled rect
 bool MainRender::Draw(int X, int Y, int W, int H, SDL_Color &Color, double rotation)
 {
     SDL_Rect DestR;
@@ -156,7 +163,8 @@ bool MainRender::Draw(int X, int Y, int W, int H, SDL_Color &Color, double rotat
     SDL_RenderFillRect(this->Renderer, &DestR);
 }
 
-
+//Creat our display rect that we will draw too.
+//and fill it with what we have been sending to the renderer.
 void MainRender::CreateDisplayRect()
 {
 
@@ -171,7 +179,7 @@ void MainRender::CreateDisplayRect()
 	SDL_RenderFillRect(Renderer, &DisplayRect);
 }
 
-
+//Display the renderer and then clear it
 void MainRender::RenderDisplay()
 {
 
@@ -184,17 +192,19 @@ void MainRender::RenderDisplay()
 
 }
 
+//Clean up the renderer
 void MainRender::Clean()
 {
 	SDL_DestroyRenderer(this->Renderer);
 }
 
-
+//Load a texture from a file
 SDL_Texture* MainRender::LoadTexture(char* File)
 {
 	return IMG_LoadTexture(Renderer, File);
 }
 
+//Create a texture from a surface
 SDL_Texture* MainRender::CreateTextureFromSurface(SDL_Surface* surface)
 {
     return SDL_CreateTextureFromSurface(Renderer,surface);

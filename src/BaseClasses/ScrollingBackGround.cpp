@@ -1,30 +1,30 @@
 /*********************************************************************************
 **  Copyright 2013 Eric Basile 												  	**
 **  																			**
-**  This file is part of Henry Hudson's Revenge. A Cross Platform project,      **
-**  also Known as HHR_X and referd to as such thoughout.						**
+**  This file is part of SDL2_Pong.                                    			**
 **  																			**
-**  HHR_X is free software: you can redistribute it and/or modify			  	**
+**  SDL2_Pong is free software: you can redistribute it and/or modify			**
 **  it under the terms of the GNU General Public License as published by		**
 **  the Free Software Foundation, either version 3 of the License, or		  	**
 **  (at your option) any later version.										  	**
 **  																			**
-**  HHR_X is distributed in the hope that it will be useful,					**
+**  SDL2_Pong is distributed in the hope that it will be useful,			    **
 **  but WITHOUT ANY WARRANTY; without even the implied warranty of			  	**
 **  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the			  	**
 **  GNU General Public License for more details.								**
 **  																			**
 **  You should have received a copy of the GNU General Public License		  	**
-**  along with HHR_X.  If not, see <http://www.gnu.org/licenses/>.			  	**
+**  along with SDL2_Pong.  If not, see <http://www.gnu.org/licenses/>.			**
 **  																			**
 **********************************************************************************/
 
+//Base class for a scrolling background
+
+
 #include "ScrollingBackGround.h"
-
-
 #include "../MainApp.h"
 
-
+//Default set things to null or 0
 ScrollingBackGround::ScrollingBackGround(void)
 {
 	BackGroundTextures = NULL;
@@ -36,11 +36,13 @@ ScrollingBackGround::ScrollingBackGround(void)
 
 }
 
+//Construct with data
 ScrollingBackGround::ScrollingBackGround(char* BaseBackGroundFile, char** MovingBackGroundFiles,  int numberOfBackgrounds, ScrollDirection setDirecton, int speed)
 {
 	LoadEnvirement(BaseBackGroundFile, MovingBackGroundFiles, numberOfBackgrounds, Direction, speed);
 }
 
+//use provided paramaters to set up the scrolling background envirement
 bool ScrollingBackGround::LoadEnvirement(char* BaseBackGroundFile, char** MovingBackGroundFiles, int numberOfBackgrounds, ScrollDirection setDirecton, int speed)
 {
 	//Environment(BaseBackGroundFile);
@@ -92,7 +94,7 @@ bool ScrollingBackGround::LoadEnvirement(char* BaseBackGroundFile, char** Moving
 
 }
 
-
+//based on our scrolling state update appropate scroll
 void ScrollingBackGround::UpDate()
 {
 	switch (Direction)
@@ -116,13 +118,15 @@ void ScrollingBackGround::UpDate()
 
 }
 
+//Scrolls the background up
 void ScrollingBackGround::ScrollUp()
 {
 	for(int i = 0 ; i< numberOfBackgrounds; ++i)
 	{
 		BackGroundRects[i].y -= currentSpeed;
 
-
+        //if a pannel is now off screen above
+        //it goes to the end at the bottom.
 		if(BackGroundRects[i].y < -WHEIGHT)
 		{
 			BackGroundRects[i].y = ((numberOfBackgrounds-1) * BackGroundRects[i].h) - currentSpeed;
@@ -131,6 +135,7 @@ void ScrollingBackGround::ScrollUp()
 
 }
 
+//scrolls background down
 void ScrollingBackGround::ScrollDown()
 {
 	for(int i= 0 ; i< numberOfBackgrounds; ++i)
@@ -145,7 +150,7 @@ void ScrollingBackGround::ScrollDown()
 	}
 }
 
-
+//Scrolls background down
 void ScrollingBackGround::ScrollLeft()
 {
 	for(int i= 0 ; i< numberOfBackgrounds; ++i)
@@ -161,7 +166,7 @@ void ScrollingBackGround::ScrollLeft()
 
 }
 
-
+//Scrolls background right
 void ScrollingBackGround::ScrollRight()
 {
 	for(int i = 0 ; i< numberOfBackgrounds; ++i)
@@ -177,10 +182,14 @@ void ScrollingBackGround::ScrollRight()
 
 }
 
+//Draws Bakgrounf Pannels.
 void ScrollingBackGround::Render(MainRender	&theRenderer)
 {
 	for(int i= 0 ; i< numberOfBackgrounds; ++i)
-	{
+    {
+
+        //Checks if any part is visible on screen
+        //if it is then we draw it.
 		if(((BackGroundRects[i].x > -WWIDTH) && (BackGroundRects[i].x < WWIDTH)) && ((BackGroundRects[i].y > -WHEIGHT)&&(BackGroundRects[i].y < WHEIGHT)) )
 		{
 			theRenderer.Draw(BackGroundTextures[i],BackGroundRects[i].x,BackGroundRects[i].y);
@@ -203,6 +212,8 @@ void ScrollingBackGround::Cleanup()
 	delete []BackGroundTextures;
 }
 
+//if level has things we need to check if we collide with
+//this would be where we do it.
 void ScrollingBackGround::CheckCollision()
 {
 
