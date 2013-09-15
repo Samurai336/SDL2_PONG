@@ -51,6 +51,7 @@ bool BaseUnit::Load(char* File)
     //return true the Load Faild
 	 if((unitTexture = MainApp::Instance()->GetMainRenderTarget()->LoadTexture(File)) == NULL)
      {
+
          return true;
      }
 

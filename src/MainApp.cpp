@@ -109,7 +109,7 @@ bool MainApp::OnInit()
 	}
 
     //Create out SDL window centered at said with and height
-	MainWindow = SDL_CreateWindow("HHR_X",
+	MainWindow = SDL_CreateWindow("SDL2_PONG",
 							  SDL_WINDOWPOS_CENTERED,
 							  SDL_WINDOWPOS_CENTERED,
 							  WWIDTH, WHEIGHT,
@@ -122,6 +122,12 @@ bool MainApp::OnInit()
 		printf("Main Render Target Failed to Initilize\n");
 		return false;
 	}
+
+	if(IMG_Init(IMG_INIT_PNG) < 0)
+    {
+        return false;
+
+    }
 
     //initalize our audio interface
     if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) <0)
@@ -241,23 +247,27 @@ MainRender* MainApp::GetMainRenderTarget()
 
 void MainApp::OnCleanup()
 {
-	//Clean up the renderer
-	MainRenderTarget.Clean();
-
-	//Kill the window
-	SDL_DestroyWindow(MainWindow);
-
-    //clean the level
+	//clean the level
 	CurrentLevel->OnCleanup();
 
     //delete the level
 	delete CurrentLevel;
 
+
     //Kill ttf extersion
     TTF_Quit();
 
+    //Unload Image libs
+    IMG_Quit();
+
     //Kill Audio
     Mix_CloseAudio();
+
+    //Clean up the renderer
+	MainRenderTarget.Clean();
+
+	//Kill the window
+	SDL_DestroyWindow(MainWindow);
 
     //Quit SDL
     SDL_Quit();
