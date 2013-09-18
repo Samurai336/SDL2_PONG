@@ -35,6 +35,7 @@ bool MainRender::InitRenderer(SDL_Window* windowToRenderTo)
     //create the renderer in the window, use first driver to suport flags, use Hardware acceleration
 	this->Renderer = SDL_CreateRenderer(windowToRenderTo, -1, SDL_RENDERER_ACCELERATED );
 
+
     //if we faild to create the renderer
     //print out why
 	if(this->Renderer == NULL)
@@ -47,8 +48,7 @@ bool MainRender::InitRenderer(SDL_Window* windowToRenderTo)
 
 
 	}
-	else
-    {
+	
 
 
 
@@ -59,7 +59,8 @@ bool MainRender::InitRenderer(SDL_Window* windowToRenderTo)
 
         printf("Render Information: name: %s, Flags: %zu \n",currentRenderInformation.name, currentRenderInformation.flags );
 #endif // DEBUG_MODE
-    }
+    
+		SDL_SetRenderDrawBlendMode(Renderer, SDL_BLENDMODE_BLEND);
 
 
 
@@ -158,7 +159,7 @@ bool MainRender::Draw(int X, int Y, int W, int H, SDL_Color &Color, double rotat
 	DestR.h = H;
 
 
-    SDL_SetRenderDrawColor(this->Renderer, Color.r, Color.g, Color.b, Color.a);
+    SDL_SetRenderDrawColor(this->Renderer, Color.r, Color.g, Color.b, 255);
 
     SDL_RenderFillRect(this->Renderer, &DestR);
 
@@ -177,7 +178,7 @@ void MainRender::CreateDisplayRect()
 	DisplayRect.h = WHEIGHT;
 
 	//but not above here.
-
+	SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 255);
 	SDL_RenderFillRect(Renderer, &DisplayRect);
 }
 
@@ -188,7 +189,7 @@ void MainRender::RenderDisplay()
 	//rendering can happen here
 	SDL_RenderPresent(Renderer);
     SDL_RenderClear(Renderer);
-    SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 255);
+    
 
 	//or it can happen here
 

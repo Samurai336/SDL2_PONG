@@ -108,7 +108,9 @@ bool MainApp::OnInit()
         	return false;
 	}
 
+
     //Create out SDL window centered at said with and height
+
 	MainWindow = SDL_CreateWindow("SDL2_PONG",
 							  SDL_WINDOWPOS_CENTERED,
 							  SDL_WINDOWPOS_CENTERED,

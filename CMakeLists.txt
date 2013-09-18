@@ -79,10 +79,6 @@ else ()
         ${renderer_files}
         ${physics_files}
 	)
-	if(CMAKE_COMPILER_IS_GNUCXX)
-	    set(CMAKE_CXX_FLAGS "-Wno-write-strings")   
-	endif()
-	
 endif ()
 
 target_link_libraries(${App_Name}
@@ -108,7 +104,7 @@ if (Option_SDL_Dev)
 	if (NOT SDL2TTF_FOUND)
 		message (FATAL_ERROR "SDL_ttf not found!")
 	endif (NOT SDL2TTF_FOUND)
-	
+
 	find_package(SDL2_mixer)
 	if (NOT SDL2MIXER_FOUND)
 		message (FATAL_ERROR "SDL_mixer not found!")
@@ -123,6 +119,8 @@ if (Option_SDL_Dev)
  		${SDL2MAIN_LIBRARY}
 		${SDL2IMAGE_LIBRARY}
 		${SDL2MIXER_LIBRARY}
+		${SDL2MAIN_LIBRARY}
+		${SDL2IMAGE_LIBRARY}
 		${SDL2TTF_LIBRARY}
 		${TARGET_LINK_LIBRARIES}
 		)

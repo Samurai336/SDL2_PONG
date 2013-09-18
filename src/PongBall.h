@@ -58,6 +58,7 @@ class PongBall: public SpriteAnimation
         SDL_Rect collisionRect;
         int velocity[2];
         int roatationRate;
+
     private:
 };
 

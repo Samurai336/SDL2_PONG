@@ -330,6 +330,7 @@ void PongLevel::CollisionChecks ()
         Ball.getVelocity()[0] *= -1;
     }
 
+
 }
 
 PongLevel::~PongLevel()

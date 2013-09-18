@@ -25,6 +25,7 @@ PongBall::PongBall()
     SpriteAnimation();
     frameChange = false;
     roatationRate = 1;
+
     //ctor
 }
 
