@@ -41,10 +41,10 @@ BaseSound::BaseSound(char* File)
 bool BaseSound::Load(char* File)
 {
     //Return false since the load failed
-	SoundFile = Mix_LoadWAV(File);
-    //if(() == NULL)
+	
+    if((SoundFile = Mix_LoadWAV(File)) == NULL)
     {
-       // return false;
+        return false;
     }
 
 
