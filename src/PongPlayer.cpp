@@ -37,6 +37,9 @@ bool PongPlayer::Load(SDL_Color setColor, int x, int y, unsigned int Width, unsi
     collisionRect.h = height = Height;
 
     score = 0;
+	
+
+	return true; 
 }
 
 

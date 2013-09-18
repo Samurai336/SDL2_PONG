@@ -161,6 +161,8 @@ bool MainRender::Draw(int X, int Y, int W, int H, SDL_Color &Color, double rotat
     SDL_SetRenderDrawColor(this->Renderer, Color.r, Color.g, Color.b, Color.a);
 
     SDL_RenderFillRect(this->Renderer, &DestR);
+
+	return true; 
 }
 
 //Creat our display rect that we will draw too.

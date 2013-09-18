@@ -24,6 +24,10 @@ PongLevel::PongLevel()
 {
     //ctor
 
+	SecondsCheck = 0; 
+	CountDownTime = 0; 
+	RestTime = 0; 
+
 
 }
 
