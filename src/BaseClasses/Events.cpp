@@ -35,6 +35,7 @@ Events::~Events() {
 void Events::OnEvent(SDL_Event* Event) {
 	switch(Event->type) {
 
+
 		/* not sure how this translates in 2.0
 	case SDL_SYSWMEVENT: {
 			switch(Event->syswm.type) {
