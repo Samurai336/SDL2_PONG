@@ -79,6 +79,10 @@ else ()
         ${renderer_files}
         ${physics_files}
 	)
+	if(CMAKE_COMPILER_IS_GNUCXX)
+		set(CMAKE_CXX_FLAGS "-Wno-write-strings")   
+	endif()
+
 endif ()
 
 target_link_libraries(${App_Name}
