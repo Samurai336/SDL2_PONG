@@ -194,6 +194,7 @@ void MainRender::RenderDisplay()
 
 	//rendering can happen here
 	SDL_RenderPresent(Renderer);
+	SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 255);
     SDL_RenderClear(Renderer);
 
 
